@@ -5,9 +5,6 @@ NCDB="ncdb"
 NCUSER="ncuser"
 NCUSERPASS="$(openssl rand -base64 12)"
 clear
-sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install apache2 mariadb-server -y
-clear
 #----------------------------- User Input --------------------------------------------------
 echo "Please enter root user MySQL password... (Password type prompt is hidden)"
 read -s rootpasswd
@@ -17,6 +14,8 @@ read -e -p "Desired user name for NextCloud... default is [$NCUSER]: " -i "$NCUS
 read -e -p "Desired password for NextCloud user... default is [$NCUSERPASS]: " -i "$NCUSERPASS" NCUSERPASS
 #-------------------------------------------------------------------------------------------
 clear
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt-get install apache2 mariadb-server -y
 sudo apt-get install php-gd php-json php-mysql php-curl php-intl php-mcrypt php-imagick php-zip php-dom php7.0-xml php-mbstring wget unzip -y
 sudo cp php.ini /etc/php/7.0/apache2/
 sudo systemctl restart apache2
