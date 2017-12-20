@@ -13,11 +13,11 @@ sudo cp php.ini /etc/php/7.0/apache2/
 sudo systemctl restart apache2
 clear
 echo "Entering custom parameters..."
-read -p "Desired database name for NextCloud... default is [$NCDB]: " -i "NCDB" NCDB
+read -e -p "Desired database name for NextCloud... default is [$NCDB]: " -i "$NCDB" NCDB
 echo "$NCDB will be used..."
-read -p "Desired user name for NextCloud... default is [$NCUSER]: " -i "NCUSER" NCUSER
+read -e -p "Desired user name for NextCloud... default is [$NCUSER]: " -i "$NCUSER" NCUSER
 echo "$NCUSER will be used..."
-read -p "Desired password for NextCloud user... default is [$NCUSERPASS]: " -i "NCUSERPASS" NCUSERPASS}
+read -e -p "Desired password for NextCloud user... default is [$NCUSERPASS]: " -i "NCUSER" NCUSERPASS
 echo "$NCUSERPASS will be used..."
 echo "Custom parameters finished."
 echo "Entering MYSQL commands..."
