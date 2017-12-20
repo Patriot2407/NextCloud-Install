@@ -17,7 +17,7 @@ read -e -p "Desired database name for NextCloud... default is [$NCDB]: " -i "$NC
 echo "$NCDB will be used..."
 read -e -p "Desired user name for NextCloud... default is [$NCUSER]: " -i "$NCUSER" NCUSER
 echo "$NCUSER will be used..."
-read -e -p "Desired password for NextCloud user... default is [$NCUSERPASS]: " -i "NCUSER" NCUSERPASS
+read -e -p "Desired password for NextCloud user... default is [$NCUSERPASS]: " -i "$NCUSERPASS" NCUSERPASS
 echo "$NCUSERPASS will be used..."
 echo "Custom parameters finished."
 echo "Entering MYSQL commands..."
