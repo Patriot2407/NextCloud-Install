@@ -1,6 +1,7 @@
 #!/bin/bash
 #---- executable --------
 IPADD=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1 -d'/')
+NCVERSION=12.0.4
 NCDB="ncdb"
 NCUSER="ncuser"
 NCUSERPASS="$(openssl rand -base64 12)"
@@ -11,17 +12,29 @@ sudo apt-get install phpmyadmin -y
 sudo cp php.ini /etc/php/7.0/apache2/
 sudo systemctl restart apache2
 clear
-read -p "Desired databse name for NextCloud default is [$NCDB]: " NCDB
-read -p "Desired user name for NextCloud default is [$NCUSER]: " NCUSER
-read -p "Desired databse name for NextCloud default is [$NCUSERPASS]: " NCUSERPASS
-echo "Please enter root user MySQL password!"
-read rootpasswd
+echo "Entering custom parameters..."
+read -p "Desired database name for NextCloud... default is [$NCDB]: " NCDB
+echo "$NCDB will be used..."
+read -p "Desired user name for NextCloud... default is [$NCUSER]: " NCUSER
+echo "$NCUSER will be used..."
+read -p "Desired password for NextCloud user... default is [$NCUSERPASS]: " NCUSERPASS}
+echo "$NCUSERPASS will be used..."
+echo "Custom parameters finished."
+echo "Entering MYSQL commands..."
+echo ""
+echo "Please enter root user MySQL password... (Password type prompt is hidden)"
+read -s rootpasswd
 mysql -uroot -p${rootpasswd} -e "CREATE DATABASE ${NCDB} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
 mysql -uroot -p${rootpasswd} -e "CREATE USER ${NCUSER}@localhost IDENTIFIED BY '${NCUSERPASS}';"
 mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${NCDB}.* TO '${NCUSER}'@'localhost' IDENTIFIED BY '${NCUSERPASS}';"
 mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;"
-wget https://download.nextcloud.com/server/releases/nextcloud-12.0.4.zip
-unzip nextcloud*
+echo "MYSQL finished..."
+echo ""
+echo "Downloading NextCloud Binaries..."
+wget https://download.nextcloud.com/server/releases/nextcloud-$NCVERSION.zip
+echo "Finished."
+echo "Unzipping NextCloud Binaries..."
+unzip nextcloud-$NCVERSION.zip
 sudo cp -r nextcloud/ /var/www/html/
 sudo chown -R www-data:www-data /var/www/html/nextcloud/
 sudo rm -f /etc/apache2/sites-available/nextcloud.conf
