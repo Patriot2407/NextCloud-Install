@@ -56,13 +56,14 @@ else
 fi
 clear
 sudo chmod 755 /etc/apache2/sites-available/nextcloud.conf
-sudo ln -s /etc/apache2/sites-available/nextcloud.conf /etc/apache2/sites-enabled/nextcloud.conf
-sudo chmod -R 755 /var/www/html/nextcloud/
-sudo a2enmod rewrite
-sudo a2enmod headers
-sudo a2enmod env
-sudo a2enmod dir
-sudo a2enmod mime
+if [ -f "/etc/apache2/sites-enabled/nextcloud.conf" ]
+then
+	echo "No need to enable config."
+else
+	sudo ln -s /etc/apache2/sites-available/nextcloud.conf /etc/apache2/sites-enabled/nextcloud.conf
+	sudo chmod -R 755 /var/www/html/nextcloud/
+fi
+sudo a2enmod rewrite headers env dir mime
 sudo systemctl restart apache2
 echo "Open up your web browser and navigate to URL: http://$IPADD/nextcloud." 
 echo "Use MySQL database $NCDB, with user $NCUSER password $NCUSERPASS"
