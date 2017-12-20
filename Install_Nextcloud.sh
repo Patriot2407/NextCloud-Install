@@ -1,10 +1,10 @@
 #!/bin/bash
-#---- executable --------
 IPADD=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1 -d'/')
 NCVERSION=12.0.4
 NCDB="ncdb"
 NCUSER="ncuser"
 NCUSERPASS="$(openssl rand -base64 12)"
+clear
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install php-gd php-json php-mysql php-curl php-intl php-mcrypt php-imagick php-zip php-dom php7.0-xml php-mbstring wget unzip -y
 sudo apt-get install apache2 mariadb-server -y
@@ -13,11 +13,11 @@ sudo cp php.ini /etc/php/7.0/apache2/
 sudo systemctl restart apache2
 clear
 echo "Entering custom parameters..."
-read -p "Desired database name for NextCloud... default is [$NCDB]: " NCDB
+read -p "Desired database name for NextCloud... default is [$NCDB]: " -i "NCDB" NCDB
 echo "$NCDB will be used..."
-read -p "Desired user name for NextCloud... default is [$NCUSER]: " NCUSER
+read -p "Desired user name for NextCloud... default is [$NCUSER]: " -i "NCUSER" NCUSER
 echo "$NCUSER will be used..."
-read -p "Desired password for NextCloud user... default is [$NCUSERPASS]: " NCUSERPASS}
+read -p "Desired password for NextCloud user... default is [$NCUSERPASS]: " -i "NCUSERPASS" NCUSERPASS}
 echo "$NCUSERPASS will be used..."
 echo "Custom parameters finished."
 echo "Entering MYSQL commands..."
@@ -49,5 +49,6 @@ sudo a2enmod env
 sudo a2enmod dir
 sudo a2enmod mime
 sudo systemctl restart apache2
-echo "Open up your web browser and navigate to URL: http://$IPADD/nextcloud. Use MySQL database, with user ncuser password ubuntu!!1234567"
+echo "Open up your web browser and navigate to URL: http://$IPADD/nextcloud." 
+echo "Use MySQL database $NCDB, with user $NCUSER password $NCUSERPASS"
 exit 0
