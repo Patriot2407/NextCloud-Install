@@ -24,8 +24,8 @@ echo "" &>> ./NextCloudLog.log
 echo "Database name chosen is: $NCDB" &>> ./NextCloudLog.log
 echo "Database user chosen is: $NCUSER" &>> ./NextCloudLog.log
 echo "Database password chosen is: $NCUSERPASS" &>> ./NextCloudLog.log
-mysql -uroot -p${rootpasswd} -e "DROP DATABASE IF EXISTS ${NCDB};"
-#mysql -uroot -p${rootpasswd} -e "DROP USER IF EXISTS ${NCUSER}@localhost;"
+mysql -uroot -p${rootpasswd} -e "DROP DATABASE IF EXISTS '${NCDB}';"
+mysql -uroot -p${rootpasswd} -e "DROP USER IF EXISTS '${NCUSER}'@'localhost';"
 mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;"
 mysql -uroot -p${rootpasswd} -e "CREATE DATABASE ${NCDB} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
 mysql -uroot -p${rootpasswd} -e "CREATE USER ${NCUSER}@localhost IDENTIFIED BY '${NCUSERPASS}';"
