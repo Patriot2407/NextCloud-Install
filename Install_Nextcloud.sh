@@ -1,6 +1,6 @@
 #!/bin/bash
 IPADD=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1 -d'/')
-NCVERSION=12.0.4
+NCVERSION=13.0.2
 NCDB="ncdb"
 NCUSER="ncuser"
 NCUSERPASS="$(openssl rand -base64 12)"
