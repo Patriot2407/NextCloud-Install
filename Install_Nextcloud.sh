@@ -1,6 +1,6 @@
 #!/bin/bash
 IPADD=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1 -d'/')
-NCVERSION=13.0.2
+NCVERSION=15
 NCDB="ncdb"
 NCUSER="ncuser"
 NCUSERPASS="$(openssl rand -base64 12)"
@@ -35,17 +35,18 @@ mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;"
 echo "MYSQL finished..."
 echo ""
 echo "Downloading NextCloud Binaries..."
-if [ -f "nextcloud-$NCVERSION.zip" ]
+if [ -f "latest-$NCVERSION.zip" ]
 then
 	if [ -d "/var/www/html/nextcloud/" ]
 		then
 		sudo mv /var/www/html/nextcloud/ /var/www/html/nextcloud.old/
 	fi
 else
-	wget https://download.nextcloud.com/server/releases/nextcloud-$NCVERSION.zip
+	# wget https://download.nextcloud.com/server/releases/nextcloud-$NCVERSION.zip
+	wget https://download.nextcloud.com/server/releases/latest-$NCVERSION.zip 
 	echo "Finished."
 	echo "Unzipping NextCloud Binaries..."
-	unzip nextcloud-$NCVERSION.zip
+	unzip latest-$NCVERSION.zip
 fi
 sudo cp -r nextcloud/ /var/www/html/
 sudo chown -R www-data:www-data /var/www/html/nextcloud/
