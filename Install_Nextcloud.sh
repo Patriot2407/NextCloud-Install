@@ -21,18 +21,18 @@ sudo cp php.ini /etc/php/7.0/apache2/
 sudo systemctl restart apache2
 clear
 echo "" &>> ./NextCloudLog.log
-echo "Database name chosen is: $NCDB" &>> ./NextCloudLog.log
-echo "Database user chosen is: $NCUSER" &>> ./NextCloudLog.log
-echo "Database password chosen is: $NCUSERPASS" &>> ./NextCloudLog.log
-mysql -uroot -p${rootpasswd} -e "DROP DATABASE IF EXISTS ${NCDB};" &>> ./NextCloudLog.log
-mysql -uroot -p${rootpasswd} -e "GRANT USAGE ON *.* TO ${NCUSER}@'localhost';" &>> ./NextCloudLog.log
-mysql -uroot -p${rootpasswd} -e "DROP USER ${NCUSER}@'localhost';" &>> ./NextCloudLog.log
-mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;" &>> ./NextCloudLog.log
-mysql -uroot -p${rootpasswd} -e "CREATE DATABASE ${NCDB} /*\!40100 DEFAULT CHARACTER SET utf8 */;" &>> ./NextCloudLog.log
-mysql -uroot -p${rootpasswd} -e "CREATE USER ${NCUSER}@localhost IDENTIFIED BY '${NCUSERPASS}';" &>> ./NextCloudLog.log
-mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${NCDB}.* TO '${NCUSER}'@'localhost' IDENTIFIED BY '${NCUSERPASS}';" &>> ./NextCloudLog.log
-mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;" &>> ./NextCloudLog.log
-echo "MYSQL finished..." &>> ./NextCloudLog.log
+echo "Database name chosen is: $NCDB"
+echo "Database user chosen is: $NCUSER"
+echo "Database password chosen is: $NCUSERPASS"
+mysql -uroot -p${rootpasswd} -e "DROP DATABASE IF EXISTS ${NCDB};"
+mysql -uroot -p${rootpasswd} -e "GRANT USAGE ON *.* TO ${NCUSER}@'localhost';"
+mysql -uroot -p${rootpasswd} -e "DROP USER ${NCUSER}@'localhost';"
+mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;"
+mysql -uroot -p${rootpasswd} -e "CREATE DATABASE ${NCDB} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
+mysql -uroot -p${rootpasswd} -e "CREATE USER ${NCUSER}@localhost IDENTIFIED BY '${NCUSERPASS}';"
+mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${NCDB}.* TO '${NCUSER}'@'localhost' IDENTIFIED BY '${NCUSERPASS}';"
+mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;"
+echo "MYSQL finished..."
 echo ""
 echo "Downloading NextCloud Binaries..."
 if [ -f "latest-$NCVERSION.zip" ]
